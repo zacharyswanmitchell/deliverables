@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+    background-color: #195C5C;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Helvetica;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+.container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.name, .title {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    
+}
+.buttons, .text {
+    background-color: white;
+    display:flex;
+    justify-content: space-evenly;
+
+}
+ .price, strong{
+    background-color: white; 
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+.profile {
+    background-color: gray;
+    display: flex;
+    align-self: center;
+}
+.title, .rating {
+    background-color: white; 
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
