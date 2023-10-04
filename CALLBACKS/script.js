@@ -8,7 +8,7 @@ function writeDing() {
     console.log('Ding!');
   }
   
-  let timerId = setTimeout(writeDing(), 3000);
+  let timerId = setTimeout(writeDing, 3000);
 
   // Exercise 2
 
@@ -25,21 +25,26 @@ function writeDing() {
 const words = ['short', 'medium', 'delicious', 'nice', 'lengthy'];
 
 // The sort method sorts "in place", that is, it modifies the array
-words.sort(/* pass in a named callback here */);
+
+function sortByLength(a, b) {
+  return a.length - b.length;
+};
+words.sort(sortByLength);
 
 // Check that logging words now outputs
 // ["nice", "short", "medium", "lengthy", "delicious"]
-
+console.log(words)
 // Exercise 3
 //
 // Filter the words array from above to create a new array
 // named longWords that includes only the words with 7 or more
 // characters
 
-const longWords = words.filter(/* write an anonymous inline function here */);
+const longWords = words.filter((words) => words.length >= 7);
 
 // Check that logging longWords outputs
 // ["lengthy", "delicious"]
+console.log(longWords);
 
 // Exercise 4
 
@@ -51,11 +56,17 @@ const longWords = words.filter(/* write an anonymous inline function here */);
 
 // Test with this array
 const colors = ['red', 'green', 'blue', 'purple'];
+
+function forEach(arr, callback) {
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i], i);
+}};
 // and this callback
 function log(elem, idx) {
   console.log(`Index: ${idx} / Element Value: ${elem}`);
 }
 
+forEach(colors, log);
 // calling forEach(colors, log) should resulting in this output:
 // Index: 0 / Element Value: red
 // Index: 1 / Element Value: green
@@ -84,7 +95,14 @@ function step1(cb) {
       cb()
     }, 250);
   }
-  
+
+  step1((function(){
+    step2(function(){
+      step3(function(){
+      console.log("FINISHED")
+    })
+  })}));
+
   /*
   The above functions are working asynchronous functions - DO NOT
   change any of their code. They are what we call "black boxes"
