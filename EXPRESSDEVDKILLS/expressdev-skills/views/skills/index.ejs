@@ -4,14 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <title>Document</title>
+    <title>Express Skills</title>
   </head>
   <body>
-    <h1>Skills</h1>
+    <a href="/">Home</a>
+    <h1>All Skills</h1>
+    <h3>Skills as of <%= time %></h3>
     <ul>
-      <% skills.forEach(function(id) { %>
+      <% skills.forEach(function(s) { %>
         <li>
-          <%= id.skill %> - <%= id.knowledge %>
+          <a href="/skills/<%= s.id %>"><%= s.skill %></a>
+           - <%= s.knowledge %>
         </li>
       <% }); %>
     </ul>
