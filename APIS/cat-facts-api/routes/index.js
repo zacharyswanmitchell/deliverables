@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
 router.get("/cats/fact", function (req, res, next) {
   fetch(`${ROOT_URL}/fact`)
     .then(res => res.json())
-    .then(fact => res.render("cats/facts", { fact },));
+    .then(fact => res.render("cats/facts", { fact }));
 });
 
 module.exports = router;
