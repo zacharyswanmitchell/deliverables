@@ -32,7 +32,7 @@ function show(req, res) {
     });
 }
 function create(req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   Skill.create(req.body);
   res.redirect("/skills")
 };
