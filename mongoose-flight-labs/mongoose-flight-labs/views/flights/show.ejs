@@ -9,8 +9,23 @@
     <div><%= flight.flightNo %></div>
     <div>Departs</div>
     <div><%= flight.departs %></div>
+    <div>Tickets: </div>
+    <div><% if (tickets.length) { %>
+    <ul>
+            <% tickets.forEach(t => { %>
+                <li><%= t.seat %> - <%= t.price %></li>
+            <% }); %>
+        </ul>  
+        <% } else { %>
+          No tickets sold yet!
+      <% } %>
+    </div>
+</section>
 
-    <br><br><h2>Destination</h2>
+<a href="/flights/<%= flight._id %>/tickets/new">New Ticket</a>
+
+<br><br>
+    <h2>Destination</h2>
 <form id="add-destination-form" method="POST"
   action="/flights/<%= flight._id %>/destinations">
   <label>Airport:
