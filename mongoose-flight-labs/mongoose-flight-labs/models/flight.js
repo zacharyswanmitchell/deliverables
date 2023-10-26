@@ -1,15 +1,33 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
+
+const destinationSchema = new Schema(
+  {
+    airport: {
+      type: String,
+      enum: ["ATL", "DFW", "DEN", "LAX", "SAN", "TPA", "SJO", "REK"],
+      required: true,
+    },
+    arrival: {
+      type: Date,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const flightSchema = new Schema(
   {
     airline: {
       type: String,
-      enum: ["delta", "copa", "panam", "southwest", "united"],
+      enum: ["Delta", "Copa", "Pan-am", "Southwest", "United"],
     },
     airport: {
       type: String,
-      enum: ["tpa", "sjo", "rek", "den", "lax"],
+      enum: ["ATL", "DFW", "DEN", "LAX", "SAN", "TPA", "SJO", "REK"]
     },
     flightNo: {
       type: Number,
@@ -19,10 +37,14 @@ const flightSchema = new Schema(
     },
     departs: {
       type: Date,
-      default: function () {
-        return new Date().getDate;
+      default: () => {
+        const oneYear = new Date();
+        oneYear.setFullYear(oneYear.getFullYear() + 1);
+        return oneYear;
       },
+      required: true,
     },
+    destinations: [destinationSchema],
   },
   {
     timestamps: true,

@@ -13,8 +13,8 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-    const flight = await Flight.findById(req.params.id);
-    res.render("flights/show", { flight });
+  const flight = await Flight.findById(req.params.id);
+  res.render("flights/show", { flight });
 }
 
 function newFlight(req, res) {
@@ -22,11 +22,11 @@ function newFlight(req, res) {
 }
 
 async function create(req, res) {
-    try {
-        const flight = await Flight.create(req.body);
-        // Redirect to the new flight's show functionality
-        res.redirect(`/flights/${flight._id}`);
-    } catch (err) {
-        res.render("flights/new", { errorMsg: err.message })
-    }
+  try {
+    const flight = await Flight.create(req.body);
+    // Redirect to the new flight's show functionality
+    res.redirect(`/flights/${flight._id}`);
+  } catch (err) {
+    res.render("flights/new", { errorMsg: err.message });
+  }
 }
