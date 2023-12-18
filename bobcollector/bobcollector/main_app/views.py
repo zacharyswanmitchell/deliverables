@@ -1,8 +1,11 @@
+import uuid
+import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Bob, Toy
+from .models import Bob, Toy, Photo
 from .forms import FeedingForm
+import os
 
 # Create your views here.
 def home(request):
@@ -72,3 +75,23 @@ def assoc_toy(request, bob_id, toy_id):
 def unassoc_toy(request, bob_id, toy_id):
   Bob.objects.get(id=bob_id).toys.remove(toy_id)
   return redirect('detail', bob_id=bob_id)
+
+def add_photo(request, bob_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to bob_id or bob (if you have a bob object)
+            Photo.objects.create(url=url, bob_id=bob_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('detail', bob_id=bob_id)
